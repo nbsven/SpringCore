@@ -1,9 +1,16 @@
 package com.epam.spring.core;
 
+import com.epam.spring.core.beans.Client;
+import com.epam.spring.core.loggers.ConsoleEventLogger;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class App {
 
   private Client client;
-  private ConsoleEventLogger eventLogger;
+  private EventLogger eventLogger;
 
   private void logEvent(String msg) {
     String message = msg.replaceAll(client.getId(), client.getFullName());
@@ -11,11 +18,7 @@ public class App {
   }
 
   public static void main(String[] args) {
-    App app = new App();
 
-    app.client = new Client("1", "John Smith");
-    app.eventLogger = new ConsoleEventLogger();
 
-    app.logEvent("Some event for user 1");
   }
 }
