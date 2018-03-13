@@ -21,9 +21,6 @@ public class Event {
   }
 
   public String toString() {
-    return "Event(id=" + this.getId()
-        + ", msg=" + this.getMsg()
-        + ", date=" + dateFormat.format(date)
-        + ", dateFormat=" + this.getDateFormat() + ")";
+    return "Event( msg=" + this.getMsg() + ", date=" + dateFormat.format(date) + ")";
   }
 }

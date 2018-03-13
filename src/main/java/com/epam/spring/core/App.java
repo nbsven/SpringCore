@@ -1,6 +1,7 @@
 package com.epam.spring.core;
 
 import com.epam.spring.core.beans.Client;
+import com.epam.spring.core.beans.Event;
 import com.epam.spring.core.loggers.ConsoleEventLogger;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,10 @@ public class App {
   private Client client;
   private EventLogger eventLogger;
 
-  private void logEvent(String msg) {
-    String message = msg.replaceAll(client.getId(), client.getFullName());
-    eventLogger.logEvent(message);
+  private void logEvent(Event event) {
+    String message = event.getMsg().replaceAll(client.getId(), client.getFullName());
+    event.setMsg(message);
+    eventLogger.logEvent(event);
   }
 
   public static void main(String[] args) {
@@ -24,8 +26,13 @@ public class App {
 
     App app = (App) context.getBean("app");
 
-    app.logEvent("Some event for 1");
-    app.logEvent("Some event for 2");
+    Event event = context.getBean("event", Event.class);
+    event.setMsg("Some event for 1");
+    app.logEvent(event);
+
+    Event event1 = context.getBean("event", Event.class);
+    event1.setMsg("Some event for 2");
+    app.logEvent(event1);
 
   }
 }
